@@ -188,13 +188,14 @@ Nano Banana Pro mit den Figurenbildern als `--image`-Referenzen, Seitenverhältn
 <was passiert>, <Ort>, <Licht/Look der Welt>, <Objektiv>. Clean photographic frame, no text.
 ```
 
-### 4.4 Methode wählen (Gegentest entscheidet)
+### 4.4 Methode wählen (Standard Seedance, Rest nur auf Wunsch)
 
 | Methode | Wann | Aufruf (Kern) |
 |---|---|---|
-| Kling Multi-Shot | bis 15 s, Shots kurz, viele Shots, günstig | `kling_o3_image_reference --image figur_a.png --image figur_b.png --multi_shots=true --multi_prompt "$(cat prompts/multi_v1.json)" --duration 15 --mode pro --aspect_ratio 9:16 --sound off` |
-| Einzelne Shots | volle Kontrolle, lange oder schwierige Shots | pro Shot `kling_o3_flf --start-image bilder/key_03.png --multi_shots=false --duration 5 --mode std --aspect_ratio 9:16 --sound off --prompt "..."`, danach schneiden |
-| Seedance bis 30 s | eine durchgehende Welt, Shots im Prompt (erst mit 10 s testen) | `seedance_2_5 --mode omni_reference --image figur_a.png --image figur_b.png --duration 10 --draft=true --generate_audio=false --prompt "Shot 1: <Subjekt>, <Aktion>, <Kamera>, <Szene>, <Stil>, <Einschränkungen>. Then cut to Shot 2: ..."` (Shots à 2-3 s) |
+| **Seedance bis 30 s (Standard)** | Story mit Figuren und Dialog, ein Lauf | `seedance_2_5 --mode omni_reference --image figur_c1.png --image figur_c2.png --duration 30 --draft=true --resolution 480p --aspect_ratio 9:16 --generate_audio=true --prompt "<LOOK-PROFIL>. Shot 1 (0-1 s): <Einstellung>, <Subjekt>, <Aktion>, <Kamera>. Then cut to Shot 2 (1-2.5 s): ... C1 says: \"...\" ..."` (Figuren im Prompt als „the woman from image 1“ usw.) |
+| Kling Multi-Shot (nur auf Wunsch) | bis 15 s, Shots kurz, viele Shots, günstig | `kling_o3_image_reference --image figur_a.png --image figur_b.png --multi_shots=true --multi_prompt "$(cat prompts/multi_v1.json)" --duration 15 --mode pro --aspect_ratio 9:16 --sound off` |
+| Einzelne Shots (nur auf Wunsch) | volle Kontrolle, lange oder schwierige Shots | pro Shot `kling_o3_flf --start-image bilder/key_03.png --multi_shots=false --duration 5 --mode std --aspect_ratio 9:16 --sound off --prompt "..."`, danach schneiden |
+| Seedance kurz testen | nur wenn unklar ist, ob Schnitte sitzen | `seedance_2_5 --mode omni_reference --image figur_a.png --image figur_b.png --duration 10 --draft=true --generate_audio=true --prompt "Shot 1: <Subjekt>, <Aktion>, <Kamera>, <Szene>, <Stil>, <Einschränkungen>. Then cut to Shot 2: ..."` (Shots à 2-3 s) |
 
 `prompts/multi_v1.json` (Längen aus der Shot-Liste, ganze Sekunden, Summe = `--duration`):
 ```

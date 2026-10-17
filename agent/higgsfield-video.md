@@ -88,11 +88,22 @@ Nur aus Text, mit Nano Banana Pro, nach `VORLAGEN.md` Abschnitt 2. Zwei Variante
 ### Gegentest (vor dem ersten vollen Lauf)
 Nach `VIDEOTYPEN.md` Abschnitt 3: ein repräsentativer Shot oder 5 s auf der günstigsten Stufe, am Vorbild verglichen. Bestätigt er den Typ, schlägst du den vollen Lauf mit Kosten vor. Widerspricht er, bestimmst du den Typ neu, statt am Prompt zu drehen.
 
+### Modellwahl (fest)
+- **Standard ist Seedance 2.5** (`seedance_2_5 --mode omni_reference`), auch bei Montage/Multi-Shot: bis 30 s in einem Lauf, Ton mit Dialog und Lippenbewegung entsteht nativ (`--generate_audio=true`), Figurenbilder gehen als `--image-references` rein, ein Startbild ist dafür nicht nötig. Mehrere Shots stehen in EINEM Prompt in Storyboard-Notation (`VORLAGEN.md` Abschnitt 4). Länger als 30 s: `--mode video_extension --extension_mode forward`.
+- **Kling, Veo usw. nur, wenn der Nutzer es ausdrücklich will** oder Seedance nachweislich scheitert (Beleg zeigen, dann fragen).
+- **Hat das Vorbild Ton** (Dialog, Rufe, Atmo), ist ein stummes Ergebnis kein Ergebnis: Ton entsteht im selben Seedance-Lauf, Dialog wörtlich mit Sprecher und Sekunde im Prompt. Lizenzierte Musik wird nicht nachgebaut, eigene Musik kommt nur auf Wunsch leise darunter.
+
+### Look (bevor ein Video-Credit fließt)
+- In der Shot-Map steht ein **Look-Profil**: Filmmaterial und Ära, Farbwelt, Weichheit/Diffusion/Halation, Korn, Kontrast, Brennweiten, wie nah die Einstellungen sind, Ära-Merkmale im Bild (z. B. Skyline, Telefone, Autos).
+- Das Look-Profil steht wörtlich in jedem Bild- und Video-Prompt.
+- **Gate:** Erst wenn Figurenbilder bzw. Keyframes neben Standbildern des Vorbilds im Look und in den Gesichtern passen (Bogen zeigen), darf ein Video-Credit fließen. Passt der Look nicht, korrigierst du zuerst den Look, nicht die Bewegung.
+- Keine parallelen Volläufe: nach dem Gegentest genau ein voller Entwurf, vergleichen, dann weiter.
+
 ### Video-Prompt
-Montage/Multi-Shot: `VORLAGEN.md` Abschnitt 4 (Figurenblatt, Keyframes, Kling Multi-Shot oder einzelne Shots, Zusammenschnitt). One-Take: vier Blöcke nach `VORLAGEN.md` Abschnitt 3: SET LAYOUT (beginnt mit "The video starts exactly on the start image (image 1): ..."), CAMERA MOVE, NOTHING APPEARS OUT OF NOWHERE, ACTION AND SOUND. Ablage als `prompts/v1.txt`, dazu eine Zeile in `PROMPTS.md`. Seedance 2.5, `--mode omni_reference`, **nur das Startbild**. Kein Endbild, keine Referenzbilder vom Zielzustand.
+Montage/Multi-Shot: `VORLAGEN.md` Abschnitt 4 (Figurenblatt im Look-Profil als Referenzbilder, Seedance-Storyboard in einem Lauf; Kling-Multi-Shot oder einzelne Shots nur auf Wunsch). One-Take: vier Blöcke nach `VORLAGEN.md` Abschnitt 3: SET LAYOUT (beginnt mit "The video starts exactly on the start image (image 1): ..."), CAMERA MOVE, NOTHING APPEARS OUT OF NOWHERE, ACTION AND SOUND. Ablage als `prompts/v1.txt`, dazu eine Zeile in `PROMPTS.md`. Seedance 2.5, `--mode omni_reference`, **nur das Startbild**. Kein Endbild, keine Referenzbilder vom Zielzustand.
 
 ### Entwurf
-- **Immer erst als Entwurf:** `--draft=true --resolution 480p`, 45 Credits für 15 s. Kling hat keinen Entwurf: dort `--mode std --sound off` als günstigste Teststufe. Geht es nur um den Anfang (Startbild, erste Bewegung), reicht `--duration 5` für etwa 15 Credits.
+- **Immer erst als Entwurf:** `--draft=true --resolution 480p`, 45 Credits für 15 s. 30 s als Entwurf: 90 Credits. Geht es nur um den Anfang (Startbild, erste Bewegung), reicht `--duration 5` für etwa 15 Credits.
 - **Ein Entwurf pro Hypothese.** Keine Batches "mal sehen".
 - **Vor jedem Job Kosten nennen und Ja abwarten**, in einem Satz: "Entwurf 2 mit Prompt v2 (Änderung: Kamera schwenkt links statt rechts), 45 Credits, danach 139 von 200. Starten?" Hat der Nutzer im Profil "Entwürfe frei bis zum Deckel" gewählt, sagst du nur Bescheid.
 - Kommt beim Warten ein Timeout oder "no response": Der Job läuft trotzdem. Mit `job.py holen` nachholen, nicht neu starten.
@@ -108,7 +119,7 @@ Nie "fertig" oder "so nah wie möglich" sagen, ohne dass alle fünf gelaufen sin
 
 ### Vergleichen und genau eine Sache ändern
 Schreib pro Entwurf in `LOG.md` eine kurze Tabelle: `Sekunde | Soll | Entwurf | Unterschied | Ursache`.
-Dann such die **eine wichtigste Abweichung**, in dieser Reihenfolge: Kamera, Set-Geografie, Timing der Ereignisse, Dramatik, Details und Ton. Benenn die Ursache aus `REGELN.md` oder als begründete Vermutung, und ändere **nur diese eine Sache**. Prompt v2 = v1 + eine Änderung, Wort für Wort sonst gleich. Sagt der Nutzer "nur X ändern", änderst du nur X, nicht nebenbei Startbild, Set und Ereignis.
+Dann such die **eine wichtigste Abweichung**, in dieser Reihenfolge: Look (Farbe, Weichheit, Korn, Nähe der Einstellungen), Figuren, Kamera, Set-Geografie, Timing der Ereignisse, Dramatik, Details und Ton. Fehlt Ton, den das Vorbild hat, ist das ein Grundfehler. Benenn die Ursache aus `REGELN.md` oder als begründete Vermutung, und ändere **nur diese eine Sache**. Prompt v2 = v1 + eine Änderung, Wort für Wort sonst gleich. Sagt der Nutzer "nur X ändern", änderst du nur X, nicht nebenbei Startbild, Set und Ereignis.
 
 Dem Nutzer zeigst du: den Bogen, 3 bis 5 Zeilen Unterschiede, deinen Vorschlag für die eine Änderung, die Kosten.
 
