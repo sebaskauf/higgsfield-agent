@@ -91,12 +91,12 @@ Nach `VIDEOTYPEN.md` Abschnitt 3: ein repräsentativer Shot oder 5 s auf der gü
 ### Modellwahl (fest)
 - **Standard ist Seedance 2.5** (`seedance_2_5 --mode omni_reference`), auch bei Montage/Multi-Shot: bis 30 s in einem Lauf, Ton mit Dialog und Lippenbewegung entsteht nativ (`--generate_audio=true`), Figurenbilder gehen als `--image-references` rein, ein Startbild ist dafür nicht nötig. Mehrere Shots stehen in EINEM Prompt in Storyboard-Notation (`VORLAGEN.md` Abschnitt 4). Länger als 30 s: `--mode video_extension --extension_mode forward`.
 - **Kling, Veo usw. nur, wenn der Nutzer es ausdrücklich will** oder Seedance nachweislich scheitert (Beleg zeigen, dann fragen).
-- **Hat das Vorbild Ton** (Dialog, Rufe, Atmo), ist ein stummes Ergebnis kein Ergebnis: Ton entsteht im selben Seedance-Lauf, Dialog wörtlich mit Sprecher und Sekunde im Prompt. Lizenzierte Musik wird nicht nachgebaut, eigene Musik kommt nur auf Wunsch leise darunter.
+- **Ton nach Analyse, nicht nach Gefühl:** Erst mit `stimmen.py` (plus Spektrum/Lautstärke) bestimmen, was im Vorbild wirklich zu hören ist: Dialog, Rufe, Soundeffekte, Atmo, Musik. Generiert wird genau das, was vorkommt, und nichts darüber hinaus: Dialog wörtlich mit Sprecher und Sekunde, Soundeffekte und Atmo konkret beschrieben, Musik nur als ähnliche Stimmung (nie den lizenzierten Song). Ist das Vorbild stumm, bleibt der Nachbau stumm (`--generate_audio=false`). Fehlt Ton, den das Vorbild hat, ist das ein Grundfehler.
 
 ### Look (bevor ein Video-Credit fließt)
 - In der Shot-Map steht ein **Look-Profil**: Filmmaterial und Ära, Farbwelt, Weichheit/Diffusion/Halation, Korn, Kontrast, Brennweiten, wie nah die Einstellungen sind, Ära-Merkmale im Bild (z. B. Skyline, Telefone, Autos).
 - Das Look-Profil steht wörtlich in jedem Bild- und Video-Prompt.
-- **Gate:** Erst wenn Figurenbilder bzw. Keyframes neben Standbildern des Vorbilds im Look und in den Gesichtern passen (Bogen zeigen), darf ein Video-Credit fließen. Passt der Look nicht, korrigierst du zuerst den Look, nicht die Bewegung.
+- **Gate (prüfst du selbst, kein Stopp für den Nutzer):** Erst wenn Figurenbilder bzw. Keyframes neben Standbildern des Vorbilds im **Stil** passen (Look, Typ, Kleidung, Ära), darf ein Video-Credit fließen. Gesichter müssen nicht 1:1 gleich sein. Passt der Look nicht, korrigierst du zuerst den Look, nicht die Bewegung. Danach direkt weiter zum Video.
 - Keine parallelen Volläufe: nach dem Gegentest genau ein voller Entwurf, vergleichen, dann weiter.
 
 ### Video-Prompt
