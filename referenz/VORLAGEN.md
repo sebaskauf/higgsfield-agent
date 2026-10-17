@@ -50,6 +50,7 @@ Regeln:
 - `--aspect_ratio 9:16` (oder das Format des Vorbilds). 2 Credits, also gern 2 Varianten und die bessere nehmen.
 
 Beispiel (Miami-Nachbau, Bild "start_h", das mit dem Video funktioniert hat):
+Auch hier: Struktur übernehmen, Inhalt aus deiner Shot-Map.
 
 ```
 Behind-the-scenes photo, vertical 9:16, taken from a raised crew platform at the right edge of an enormous indoor wave tank, looking across the tank to the back left. Top of the frame: a dark steel ceiling truss with a few small round spotlights, two large bright square softbox lights hanging on the left side, and a long black telescopic camera crane arm entering from the upper right edge and reaching diagonally to the upper left, large white letters 'CUBE' on its end near the right edge, a remote camera head hanging from its tip at the upper left. Background: a vast royal-blue blue-screen wall with small orange plus-shaped tracking markers, a long blue curtain hanging on the left; at the back right a large grey corrugated hangar-style wave generator gate with a yellow-and-black hazard stripe band across its top; a few tiny crew members and monitors on the far side. Middle: the huge pool of calm, clear turquoise water fills most of the frame with bright reflections; small and far away on the left side of the water, a miniature amusement pier on stilts with a white Ferris wheel and little colourful booths. Foreground, lower right third, large and close: the grey concrete tank edge running diagonally from the bottom left toward the middle right with a dolly track; eight crew members in black t-shirts with EFFECTS CREW printed in white on the back, khaki shorts or trousers, headsets: one operates a big black cinema camera on a dolly in the lower left corner, a man in jeans stands behind a camera on a tripod, one raises a boom microphone with a furry windscreen, two kneel, others look at small monitors. Bright high-key studio light, natural colours, 24mm wide lens, everything sharp. Clean photographic frame: no on-screen text overlays, no camera interface, no REC sign, no timestamps, no borders.
@@ -92,7 +93,8 @@ Regeln:
 - Was abgesegnet ist, bleibt Wort für Wort stehen. Neue Version = alte Version + EINE Änderung.
 - Jede Version mit Nummer in `PROMPTS.md` ablegen, mit einem Satz, was sich geändert hat und warum.
 
-Beispiel (Miami-Nachbau v8.3: Kamera folgt der Welle nach links unten, Stadt kommt vom linken Rand):
+Beispiel (Miami-Nachbau v8.3: Kamera folgt der Welle nach links unten, Stadt kommt vom linken Rand).
+**Das ist ein Beispiel für EIN bestimmtes Video. Übernimm die Struktur und die Art der Formulierung, nie den Inhalt.** Set, Richtungen, Zeiten und Rufe kommen immer aus deiner eigenen Shot-Map.
 
 ```
 One single continuous handheld shot. No cuts, no jumps, no zoom, no morphing.
