@@ -14,6 +14,25 @@ Aus dem Modul Faceless Content der [SKAILE Academy](https://www.skool.com/skaile
 | **neu** | eine Idee in einem Satz | entwirft den Bauplan und baut das Video daraus |
 | **serie** | ein fertiges Video von dir | macht daraus weitere Folgen mit derselben Mechanik und eigener Geschichte |
 
+## Welche Videos er kann
+
+Bevor er baut, bestimmt er den **Videotyp** aus dem, was im Video messbar ist (Schnitte, Kamera,
+Figuren, Ton, Stil), und wählt danach die Higgsfield-Funktion:
+
+| Typ | Beispiel | Werkzeug |
+|---|---|---|
+| One-Take-Kamerafahrt | Miniatur-Katastrophe, Behind-the-Scenes | Seedance 2.5 |
+| Montage mit gleichen Figuren | Cinematic-Paar, Fashion-Editorial | Kling 3.0 Multi-Shot oder Keyframes pro Shot |
+| Figuren-Serie mit Dialog | Obst/Food-Drama, sprechende Gegenstände | Figurenblatt + Kling/Seedance mit Dialog |
+| Stil-Look | Clay, Papier, Stop-Motion | Stil-Presets + Startbild |
+| Motion Control | Figur tanzt deine Bewegung | Genjutsu (mit deinem eigenen Clip) |
+| Werbung mit Produkt | UGC-Ad, Hook + CTA | Ad Recreate, Marketing Studio |
+| Erklärvideo mit Text | Diagramme, UI | ehrlich: das ist Motion Design, kein KI-Video |
+
+Was Higgsfield gerade kann (Modelle, Längen, Preise), zieht er sich vor jedem Projekt frisch über
+die CLI. Erst ein billiger Gegentest, dann der volle Lauf. Nach jedem Projekt schreibt er ins
+`LERNLOG.md`, was funktioniert hat.
+
 ## Warum das funktioniert
 
 **Ein KI-Video ist eine Kamerafahrt durch ein Set, kein Bild, das sich bewegt.**

@@ -55,6 +55,8 @@ fi
 mkdir -p "${HEIM}/tools" "${HEIM}/referenz"
 cp "${REPO}"/tools/*.py "${HEIM}/tools/"
 cp "${REPO}"/referenz/*.md "${HEIM}/referenz/"
+# Lernlog gehört dem Nutzer: nur anlegen, wenn er fehlt, nie überschreiben
+[ -f "${HEIM}/LERNLOG.md" ] || cp "${REPO}/referenz/LERNLOG-START.md" "${HEIM}/LERNLOG.md"
 
 # Agent-Datei mit echtem Pfad und ggf. neuem Namen
 sed -e "s#__AGENT_HOME__#${HEIM}#g" "$QUELLE" > "$DATEI"

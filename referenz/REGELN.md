@@ -34,6 +34,12 @@ am Rand angelegt sein. Aber: Zeigt das Startbild zu viel, ändert sich die ganze
 | Musik unter dem Video | nicht ausgeschlossen | "Natural location sound only ... No music." |
 | Der 1080p-Lauf sieht anders aus als der abgesegnete Entwurf | 1080p ist ein neuer Wurf, kein schärferer Entwurf | Vorher sagen. Wer genau den Entwurf will: `video_edit`-Weg (siehe Agent, "Fertig machen") |
 
+## Fremdes Material
+
+Das Vorbild wird nie zu Higgsfield hochgeladen, auch nicht als Referenz. Video-Referenzen
+(Seedance `--video`, Genjutsu, Ad Recreate, Kling Omni Edit) nur mit eigenem Material oder nach
+ausdrücklicher Freigabe des Nutzers, mit Hinweis auf die Rechte. Details: `VIDEOTYPEN.md`.
+
 ## Was sich nicht bewährt hat
 
 - **Würfeln in Runden von 2-4 Entwürfen** "mal sehen, was rauskommt". Der Kernfehler war in jeder
@@ -44,6 +50,8 @@ am Rand angelegt sein. Aber: Zeigt das Startbild zu viel, ändert sich die ganze
 - **Einen Entwurf über die CLI fertig rendern** (`draft_job_id`): gab im Oktober 2026 einen Validierungsfehler.
 
 ## Kosten (gemessen 17.10.2026, vor jedem Job neu abfragen)
+
+Alle anderen Modelle (Kling, Genjutsu, Ad Recreate, Musik): `HIGGSFIELD-STAND.md`.
 
 Die Abfrage ist eine Schätzung. Was wirklich abgebucht wurde, zeigt
 `higgsfield account transactions`. Läuft das Konto auch für andere Projekte,

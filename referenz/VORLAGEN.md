@@ -131,3 +131,90 @@ python3 <tools>/job.py start --projekt <ordner> --out video/d1.mp4 seedance_2_5 
   --mode omni_reference --start-image bilder/start_a.png --duration 15 \
   --aspect_ratio 9:16 --resolution 480p --draft=true --prompt "$(cat prompts/v1.txt)"
 ```
+
+## 4. Montage / Multi-Shot (Typ B und C aus `VIDEOTYPEN.md`)
+
+Gilt, wenn das Vorbild aus mehreren Einstellungen besteht. Die Regeln aus Abschnitt 1-3 gelten
+pro Shot weiter (Kamera pro Shot messen, nichts aus dem Nichts, Startbild schlägt Prompt).
+
+### 4.1 Shot-Liste (am Vorbild gemessen)
+
+`python3 <tools>/shots.py original/vorbild.mp4 --bilder analyse/shots --json analyse/shots.json`
+liefert alle Schnitte mit Längen und ein Bild pro Shot. Daraus `analyse/SHOTLISTE.md`:
+
+```
+# Shot-Liste · <Projekt> · <Länge> s · <Anzahl> Shots · Schnitt im Schnitt alle <x> s
+
+## Welt (bleibt in allen Shots gleich)
+Ort, Zeit, Licht, Farbpalette, Objektiv/Look, Ton (Musik? Originalton?)
+
+## Figuren (bleiben in allen Shots gleich, feste IDs)
+C1 (<Rolle, z. B. „die Frau im Mantel“>): Alter, Gesicht, Haare, Kleidung ... (wörtlich in jeden Prompt)
+C2 (<Rolle>): ...
+
+| Shot | von-bis | Länge | Einstellungsgröße | Kamera | Figuren | Was passiert | Ton | Übergang | Beleg |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | 0,00-2,40 | 2,40 | Totale | langsamer Push-in | C1, C2 | gehen über die Straße | Musik | harter Schnitt | analyse/shots/shot_01.jpg |
+```
+
+Zusätzlich maschinenlesbar als `analyse/SHOTLISTE.json` (gleiche Felder). Liefert eine KI-Analyse
+(Gemini oder Higgsfield, siehe `VIDEOTYPEN.md` Abschnitt 0) diese Struktur, gilt sie nur als Entwurf:
+Schnittzeiten mit `shots.py` überschreiben, jede Zeile am Belegbild prüfen.
+
+```
+{"global": {"laenge_s": 0, "aera": "", "look": "", "ton": "", "vermutete_methode": "",
+            "figuren": [{"id": "C1", "rolle": "", "beschreibung": ""}]},
+ "shots": [{"nr": 1, "von": 0.0, "bis": 0.0, "einstellung": "", "kamera": "", "figuren": ["C1"],
+            "aktion": "", "set": "", "ton_dialog": "", "uebergang": "", "prompt": ""}]}
+```
+
+### 4.2 Figurenblatt (einmal bauen, in jedem Lauf verwenden)
+
+Pro Figur ein Referenzbild nur aus Text (Nano Banana Pro, 2 Credits), neutraler Hintergrund,
+ganze Figur sichtbar, gleiches Licht wie die Welt. Mehrere Ansichten derselben Figur aus EINEM Bild:
+`nano_banana_2_shots --image bilder/figur_a.png` (4 Credits). Das Vorbild wird dafür nicht
+hochgeladen: Die Figuren werden nach der Beschreibung in der Shot-Liste neu gebaut.
+
+```
+Character reference sheet, full body and face clearly visible, neutral light grey background,
+<C1-Beschreibung wörtlich aus der Shot-Liste>, <Licht/Look der Welt>, photorealistic, no text.
+```
+
+### 4.3 Keyframe pro Shot (nur bei Methode „einzelne Shots“)
+
+Nano Banana Pro mit den Figurenbildern als `--image`-Referenzen, Seitenverhältnis wie das Vorbild:
+```
+<Einstellungsgröße> of C1 (<Rolle>) and C2 (<Rolle>) (exactly as in the reference images),
+<was passiert>, <Ort>, <Licht/Look der Welt>, <Objektiv>. Clean photographic frame, no text.
+```
+
+### 4.4 Methode wählen (Gegentest entscheidet)
+
+| Methode | Wann | Aufruf (Kern) |
+|---|---|---|
+| Kling Multi-Shot | bis 15 s, Shots kurz, viele Shots, günstig | `kling_o3_image_reference --image figur_a.png --image figur_b.png --multi_shots=true --multi_prompt "$(cat prompts/multi_v1.json)" --duration 15 --mode pro --aspect_ratio 9:16 --sound off` |
+| Einzelne Shots | volle Kontrolle, lange oder schwierige Shots | pro Shot `kling_o3_flf --start-image bilder/key_03.png --multi_shots=false --duration 5 --mode std --aspect_ratio 9:16 --sound off --prompt "..."`, danach schneiden |
+| Seedance bis 30 s | eine durchgehende Welt, Shots im Prompt (erst mit 10 s testen) | `seedance_2_5 --mode omni_reference --image figur_a.png --image figur_b.png --duration 10 --draft=true --generate_audio=false --prompt "Shot 1: <Subjekt>, <Aktion>, <Kamera>, <Szene>, <Stil>, <Einschränkungen>. Then cut to Shot 2: ..."` (Shots à 2-3 s) |
+
+`prompts/multi_v1.json` (Längen aus der Shot-Liste, ganze Sekunden, Summe = `--duration`):
+```
+[
+ {"prompt": "<Einstellung>, C1 (<Rolle>) ... <Kamera> ... <Look>", "duration": 3},
+ {"prompt": "Cut to <Einstellung>, ...", "duration": 2}
+]
+```
+Jeder Shot-Prompt nennt die Figuren mit fester ID/Rolle und derselben Beschreibung. Höchstens
+4-5 Shots pro Lauf, längere Videos in mehreren Läufen.
+
+### 4.5 Zusammenschnitt und Ton
+
+Shots auf die gemessenen Längen kürzen und ohne Neukodierung der Reihenfolge nach verbinden:
+```
+ffmpeg -i video/s01.mp4 -t 2.40 -c:v libx264 -an video/s01_cut.mp4      # je Shot
+printf "file '%s'\n" video/s0*_cut.mp4 > video/liste.txt
+ffmpeg -f concat -safe 0 -i video/liste.txt -c copy video/montage.mp4
+```
+Musik separat (`sonilo_music --duration <s> --prompt "<Stil, Tempo, Stimmung>"`), mit
+`ffmpeg -i video/montage.mp4 -i ton/musik.mp3 -map 0:v -map 1:a -shortest -c:v copy -c:a aac video/montage_ton.mp4`
+zusammenführen, Lautheit -14 LUFS. Danach `shots.py` auf das Ergebnis: Shot-Zahl und Längen
+müssen zur Shot-Liste passen. `schnitt.py` ist hier kein Ausschlusskriterium (Schnitte sind gewollt).
