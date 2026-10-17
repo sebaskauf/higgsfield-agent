@@ -88,10 +88,13 @@ Nur aus Text, mit Nano Banana Pro, nach `VORLAGEN.md` Abschnitt 2. Zwei Variante
 ### Gegentest (vor dem ersten vollen Lauf)
 Nach `VIDEOTYPEN.md` Abschnitt 3: ein repräsentativer Shot oder 5 s auf der günstigsten Stufe, am Vorbild verglichen. Bestätigt er den Typ, schlägst du den vollen Lauf mit Kosten vor. Widerspricht er, bestimmst du den Typ neu, statt am Prompt zu drehen.
 
-### Modellwahl (fest)
-- **Standard ist Seedance 2.5** (`seedance_2_5 --mode omni_reference`), auch bei Montage/Multi-Shot: bis 30 s in einem Lauf, Ton mit Dialog und Lippenbewegung entsteht nativ (`--generate_audio=true`), Figurenbilder gehen als `--image-references` rein, ein Startbild ist dafür nicht nötig. Mehrere Shots stehen in EINEM Prompt in Storyboard-Notation (`VORLAGEN.md` Abschnitt 4). Länger als 30 s: `--mode video_extension --extension_mode forward`.
-- **Kling, Veo usw. nur, wenn der Nutzer es ausdrücklich will** oder Seedance nachweislich scheitert (Beleg zeigen, dann fragen).
-- **Ton nach Analyse, nicht nach Gefühl:** Erst mit `stimmen.py` (plus Spektrum/Lautstärke) bestimmen, was im Vorbild wirklich zu hören ist: Dialog, Rufe, Soundeffekte, Atmo, Musik. Generiert wird genau das, was vorkommt, und nichts darüber hinaus: Dialog wörtlich mit Sprecher und Sekunde, Soundeffekte und Atmo konkret beschrieben, Musik nur als ähnliche Stimmung (nie den lizenzierten Song). Ist das Vorbild stumm, bleibt der Nachbau stumm (`--generate_audio=false`). Fehlt Ton, den das Vorbild hat, ist das ein Grundfehler.
+### Reverse Engineering: Wie wurde das gemacht? (Pflicht vor dem ersten Video-Credit)
+Kein Modell ist gesetzt. Du findest den Weg aus dem Video, als Experte für alles, was Higgsfield kann. Gibt der Nutzer ein Modell vor, gilt seins.
+1. **Werkzeugwissen laden:** `referenz/KATALOG.md` (alle Higgsfield-Modelle laut CLI; älter als 7 Tage: `python3 __AGENT_HOME__/tools/katalog.py __AGENT_HOME__/referenz/KATALOG.md`), `HIGGSFIELD-STAND.md` (Erfahrung, Preise), `LERNLOG.md`. Unklare Funktion: offizielle Doku per Websuche.
+2. **Indizien messen:** Länge und Schnitte (ein Lauf oder mehrere? wie viele Shots je Abschnitt?), Ton (Dialog mit Lippen, Rufe, Soundeffekte, Atmo, Musik), Look (Schärfe, Sättigung, Korn, Farbwelt, Brennweiten), Figuren über Shots gleich?, Bewegungs- und Kameraqualität, Format/Auflösung, typische Artefakte, Hinweise in Caption oder Bio („Made in …“).
+3. **Hypothesen statt Bauchgefühl:** `analyse/HYPOTHESEN.md` mit 2 bis 4 plausiblen Produktionswegen (Modell + Modus + Eingaben + wie der Prompt vermutlich aufgebaut war), je Indizien dafür und dagegen, Wahrscheinlichkeit, Kosten des günstigsten Tests, der die Wege unterscheidet. Ein Indiz schließt Modelle aus (z. B. Dialog mit Lippenbewegung → nur Modelle mit nativem Ton oder Lipsync; ein Lauf über 15 s ohne Schnittsprünge → nur Modelle, die so lang können).
+4. **Test-Reihenfolge nach Information pro Credit:** zuerst ein kurzer Entwurf (5 bis 10 s) eines charakteristischen Abschnitts mit der wahrscheinlichsten Hypothese, auf der günstigsten Stufe. Erst wenn eine Hypothese bestätigt ist, die volle Länge.
+5. **Ton nach Analyse, nicht nach Gefühl:** Generiert wird genau das, was im Vorbild zu hören ist (`stimmen.py` plus Spektrum/Lautstärke): Dialog wörtlich mit Sprecher und Sekunde, Soundeffekte und Atmo konkret beschrieben, Musik nur als ähnliche Stimmung (nie den lizenzierten Song). Stummes Vorbild = stummer Nachbau. Fehlt Ton, den das Vorbild hat, ist das ein Grundfehler.
 
 ### Look (bevor ein Video-Credit fließt)
 - In der Shot-Map steht ein **Look-Profil**: Filmmaterial und Ära, Farbwelt, Weichheit/Diffusion/Halation, Korn, Kontrast, Brennweiten, wie nah die Einstellungen sind, Ära-Merkmale im Bild (z. B. Skyline, Telefone, Autos).
@@ -100,7 +103,7 @@ Nach `VIDEOTYPEN.md` Abschnitt 3: ein repräsentativer Shot oder 5 s auf der gü
 - Keine parallelen Volläufe: nach dem Gegentest genau ein voller Entwurf, vergleichen, dann weiter.
 
 ### Video-Prompt
-Montage/Multi-Shot: `VORLAGEN.md` Abschnitt 4 (Figurenblatt im Look-Profil als Referenzbilder, Seedance-Storyboard in einem Lauf; Kling-Multi-Shot oder einzelne Shots nur auf Wunsch). One-Take: vier Blöcke nach `VORLAGEN.md` Abschnitt 3: SET LAYOUT (beginnt mit "The video starts exactly on the start image (image 1): ..."), CAMERA MOVE, NOTHING APPEARS OUT OF NOWHERE, ACTION AND SOUND. Ablage als `prompts/v1.txt`, dazu eine Zeile in `PROMPTS.md`. Seedance 2.5, `--mode omni_reference`, **nur das Startbild**. Kein Endbild, keine Referenzbilder vom Zielzustand.
+Montage/Multi-Shot: `VORLAGEN.md` Abschnitt 4 (Figurenblatt im Look-Profil als Referenzbilder, dann der Weg aus `HYPOTHESEN.md`: ein Lauf mit Storyboard-Notation, Multi-Shot oder einzelne Shots). One-Take: vier Blöcke nach `VORLAGEN.md` Abschnitt 3: SET LAYOUT (beginnt mit "The video starts exactly on the start image (image 1): ..."), CAMERA MOVE, NOTHING APPEARS OUT OF NOWHERE, ACTION AND SOUND. Ablage als `prompts/v1.txt`, dazu eine Zeile in `PROMPTS.md`. Seedance 2.5, `--mode omni_reference`, **nur das Startbild**. Kein Endbild, keine Referenzbilder vom Zielzustand.
 
 ### Entwurf
 - **Immer erst als Entwurf:** `--draft=true --resolution 480p`, 45 Credits für 15 s. 30 s als Entwurf: 90 Credits. Geht es nur um den Anfang (Startbild, erste Bewegung), reicht `--duration 5` für etwa 15 Credits.
@@ -125,8 +128,10 @@ Dem Nutzer zeigst du: den Bogen, 3 bis 5 Zeilen Unterschiede, deinen Vorschlag f
 
 **Ehrlich bewerten:** Stimmen Kamera, Geografie oder Dramatik nicht, ist der Entwurf nicht "fast fertig". Keine Abweichung kleinreden, um weiterzukommen.
 
-### Stopp nach drei
-**Drei Entwürfe hintereinander mit demselben Grundfehler: Du hörst auf.** Leg die drei mit `bogen.py` untereinander, zeig den Bogen und frag den Nutzer, was er für das Problem hält. Kein vierter Versuch ohne neue Erkenntnis.
+### Iterieren, bis es sitzt
+Du machst selbstständig weiter, Versuch für Versuch, bis zum Deckel. Jede Runde: Vergleich am Vorbild → wichtigste Abweichung → Ursache → genau eine Änderung, kurz im LOG.
+**Drei Versuche mit demselben Grundfehler in derselben Hypothese:** Du drehst nicht weiter am Prompt, sondern wechselst auf die nächstwahrscheinliche Hypothese (anderer Produktionsweg) und schreibst in `HYPOTHESEN.md`, warum die alte verworfen ist.
+Den Nutzer fragst du erst, wenn alle plausiblen Hypothesen durch sind, wenn nur noch für einen Versuch Budget da ist, oder wenn ein Finale ansteht.
 
 ### Fertig machen (erst nach Ja zum Entwurf)
 Nie ungefragt in 1080p, nie ungefragt hochrechnen. Biete zwei Wege mit Kosten an:
