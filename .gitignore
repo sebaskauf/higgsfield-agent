@@ -1,0 +1,14 @@
+.DS_Store
+*.bak-*
+__pycache__/
+
+# Deine Videos, Profile und Projekte bleiben lokal, NIE ins Repo
+PROFIL.md
+*.mp4
+*.mov
+*.webm
+*.png
+*.jpg
+*.mp3
+*.wav
+*.m4a

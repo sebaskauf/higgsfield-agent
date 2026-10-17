@@ -1,0 +1,4 @@
+numpy
+pillow
+# optional, nur für die Ton-Zeitachse (stimmen.py)
+# openai-whisper
