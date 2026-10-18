@@ -74,7 +74,7 @@ zwei Methoden im Gegentest gegeneinander.
 ### F · Sprechende Person / Avatar / UGC-Werbung
 - **Fingerabdruck:** eine Person spricht in die Kamera, Lippen synchron, wenig Schnitt, oft Untertitel.
 - **Methode:** Marketing Studio der Higgsfield-CLI (`higgsfield marketing-studio`) für Werbung mit Avatar und Produkt; Veo 3.1 erzeugt Dialog nativ (4/6/8 s) [CLI]; Seedance 2.5 mit Dialog im Prompt. Eigenes Gesicht: Soul ID trainieren (eigener Higgsfield-Ablauf). [Lippenqualität je Modell: Annahme, gegentesten]
-- **Fallen:** echte fremde Personen oder Promis nie nachbauen (Persönlichkeitsrecht, Plattformregeln).
+- **Bekannte Personen:** möglich, wenn der Nutzer das will (z. B. als Twist: eine bekannte Person in einem unerwarteten Szenario). Erinnere einmal daran, das Video als KI-generiert zu kennzeichnen, und lass ihn selbst entscheiden. Blockt Higgsfields Moderation einen Job (Status `ip_detected` oder `nsfw`, die Credits kommen zurück), sag ihm das offen.
 
 ### G · Erklärvideo / Motion Graphics (Text, Icons, Diagramme, Bildschirm)
 - **Fingerabdruck:** flache Grafiken, Typo-Animation, exakte Texte, Bildschirmaufnahmen.

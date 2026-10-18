@@ -52,11 +52,12 @@ der Credits ging dabei drauf, weil gewürfelt statt analysiert wurde. Jede Regel
 
 ## Wie er mit deinen Credits umgeht
 
-- Am Anfang jedes Projekts legst du einen **Credit-Deckel** fest. Darüber startet er nichts.
+- Am Anfang jedes Projekts legst du einen **Credit-Deckel** fest, für den Anfang lieber niedrig (etwa 150 Credits). Darüber startet er nichts.
 - **Vor jedem Job nennt er die Kosten** und wartet auf dein Ja.
 - Getestet wird im **Entwurf** (480p, 45 Credits für 15 Sekunden), nicht in 1080p.
 - **Pro Test ändert er genau eine Sache**, damit du weißt, was gewirkt hat.
-- **Nach drei Fehlversuchen mit demselben Grundfehler hört er auf** und fragt dich.
+- **Nach jedem Entwurf zeigt er dir das Ergebnis** (beim Nachbauen Original und Nachbau nebeneinander) und wartet auf dein Feedback, bevor der nächste Credit fließt.
+- **Beim Start prüft er das Setup:** Login, Plan, Credits, Programme. Fehlt etwas, geht er den Teil mit dir durch.
 - Jeder Job steht mit Kosten und Job-ID in `CREDITS.md` im Projektordner.
 
 ## Was er nicht macht

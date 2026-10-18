@@ -1,7 +1,7 @@
 # Setup-Prompt
 
 Kopier den ganzen Block unter der Linie und füg ihn in Claude Code ein.
-Rechne mit 10 bis 15 Minuten. Du brauchst ein Higgsfield-Konto mit Credits.
+Rechne mit 10 bis 30 Minuten. Du brauchst ein Higgsfield-Konto mit Credits.
 Das Setup selbst kostet keine Credits.
 
 ---
