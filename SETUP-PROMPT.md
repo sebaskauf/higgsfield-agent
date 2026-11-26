@@ -16,7 +16,7 @@ SCHRITT 1 - INSTALLIEREN
    - Gibt der Befehl nicht `200` aus, steht in `higgsfield-agent.zip` ein kurzer Text. Zeig ihn mir wörtlich, lösch den Hilfsordner und hör hier auf, ohne sonst etwas zu ändern.
    - Entpack das Paket im Hilfsordner mit `tar -xf "higgsfield-agent.zip"` (Windows: das tar von Windows, `& "$env:SystemRoot\System32\tar.exe"`). Darin liegt genau ein Ordner, sein Name ist egal. Das ist das System. Liegt dort etwas anderes, brich ab und sag es mir.
    - Gibt es `~/Documents/Projects/higgsfield-agent` noch nicht, kopier diesen Ordner dorthin. Gibt es ihn schon (auch als alten Git-Klon), kopier seinen Inhalt darüber: Dateien aus dem Paket ersetzen die alten, meine eigenen Dateien bleiben liegen.
-   - Leg den Zugang aus dem Befehl (alles nach `X-Skaile-Zugang: `) als einzige Zeile in `~/.skaile/zugang` ab (Windows: `%USERPROFILE%\.skaile\zugang`, Mac danach `chmod 600`), damit spätere Updates ihn finden. Lösch dann den Hilfsordner.
+   - Leg den Zugang aus dem Befehl (alles nach `X-Skaile-Zugang: `) als einzige Zeile in `$HOME/.skaile/zugang` ab (Windows: `$env:USERPROFILE\.skaile\zugang`, Mac danach `chmod 600`). Nimm dafür genau den Ordner aus `$HOME` bzw. `$env:USERPROFILE`, rate keinen anderen, damit spätere Updates ihn finden. Lösch dann den Hilfsordner.
 2. Führ `./install.sh` im Repo aus.
    - Läuft es durch: gut.
    - **Endet es mit Code 2**, liegt bei mir schon ein anderer Agent mit diesem Namen. Lies mir vor, was da liegt, und frag MICH: `./install.sh --force` überschreibt (mit Sicherung), `./install.sh --name ki-video` installiert daneben. Entscheide das nicht selbst.
