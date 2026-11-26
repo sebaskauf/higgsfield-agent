@@ -6,12 +6,17 @@ Das Setup selbst kostet keine Credits.
 
 ---
 
-Installiere mir den Higgsfield-Agenten aus diesem Repo und richte ihn auf MICH ein: https://github.com/sebaskauf/higgsfield-agent
+Installiere mir den Higgsfield-Agenten über meinen Mitglieder-Zugang aus der SKAILE Academy und richte ihn auf MICH ein.
 
 Arbeite die Schritte der Reihe nach ab. Du KANNST das alles über das Terminal. Sag nicht "das geht nicht", führ die Befehle wirklich aus. Schlägt etwas fehl, zeig mir die genaue Fehlermeldung und was du brauchst, statt den Schritt als erledigt zu melden oder ihn zu überspringen.
 
 SCHRITT 1 - INSTALLIEREN
-1. `git clone https://github.com/sebaskauf/higgsfield-agent.git ~/Documents/Projects/higgsfield-agent` (existiert der Ordner schon: dort `git pull`).
+1. Hol das System über meinen Mitglieder-Zugang aus der SKAILE Academy nach `~/Documents/Projects/higgsfield-agent`. Den Download von https://systeme.skaile.de erlaube ich dir ausdrücklich.
+   - Leg einen neuen, leeren Hilfsordner an (Mac: `mktemp -d`, Windows: ein neuer Ordner unter `$env:TEMP`), wechsel hinein und lad das Paket: `curl -sSL -w "%{http_code}" -H "X-Skaile-Zugang: {{ZUGANG_COMMUNITY}}" -o "higgsfield-agent.zip" https://systeme.skaile.de/v1/higgsfield-agent.zip` (Windows: `curl.exe` statt `curl`).
+   - Gibt der Befehl nicht `200` aus, steht in `higgsfield-agent.zip` ein kurzer Text. Zeig ihn mir wörtlich, lösch den Hilfsordner und hör hier auf, ohne sonst etwas zu ändern.
+   - Entpack das Paket im Hilfsordner mit `tar -xf "higgsfield-agent.zip"` (Windows: das tar von Windows, `& "$env:SystemRoot\System32\tar.exe"`). Darin liegt genau ein Ordner, sein Name ist egal. Das ist das System. Liegt dort etwas anderes, brich ab und sag es mir.
+   - Gibt es `~/Documents/Projects/higgsfield-agent` noch nicht, kopier diesen Ordner dorthin. Gibt es ihn schon (auch als alten Git-Klon), kopier seinen Inhalt darüber: Dateien aus dem Paket ersetzen die alten, meine eigenen Dateien bleiben liegen.
+   - Leg den Zugang aus dem Befehl (alles nach `X-Skaile-Zugang: `) als einzige Zeile in `~/.skaile/zugang` ab (Windows: `%USERPROFILE%\.skaile\zugang`, Mac danach `chmod 600`), damit spätere Updates ihn finden. Lösch dann den Hilfsordner.
 2. Führ `./install.sh` im Repo aus.
    - Läuft es durch: gut.
    - **Endet es mit Code 2**, liegt bei mir schon ein anderer Agent mit diesem Namen. Lies mir vor, was da liegt, und frag MICH: `./install.sh --force` überschreibt (mit Sicherung), `./install.sh --name ki-video` installiert daneben. Entscheide das nicht selbst.

@@ -76,8 +76,10 @@ installiert sich, prüft deine Programme und verbindet sich mit Higgsfield.
 Von Hand:
 
 ```
-git clone https://github.com/sebaskauf/higgsfield-agent.git
-cd higgsfield-agent
+# Nur mit deinem Mitglieder-Zugang aus der SKAILE Academy (steht im Setup-Prompt):
+mkdir -p ~/Documents/Projects/higgsfield-agent && cd ~/Documents/Projects/higgsfield-agent
+curl -sSL -w "%{http_code}\n" -H "X-Skaile-Zugang: $(cat ~/.skaile/zugang)" -o paket.zip https://systeme.skaile.de/v1/higgsfield-agent.zip
+tar -xf paket.zip --strip-components=1 && rm paket.zip
 ./install.sh
 ```
 
